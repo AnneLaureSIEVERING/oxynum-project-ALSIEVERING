@@ -1,0 +1,3 @@
+Back-End : PHP + Slim microframework
+Relational Database
+VueJS
