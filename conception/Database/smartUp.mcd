@@ -1,0 +1,5 @@
+USERS: id, firstname, email, password
+WIN, ON USERS, 11 INCOMES
+INCOMES: id, month, year, amount
+
+
