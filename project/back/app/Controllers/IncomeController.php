@@ -42,12 +42,12 @@ class IncomeController {
 
     public function create() {
 
+        $user_id = $_SESSION ["userId"];
         $_POST = json_decode(file_get_contents('php://input'), true);
 
         $month = $_POST['month'];
         $year = $_POST['year'];
         $amount = $_POST['amount'];
-        $user_id = $_POST['user_id'];
 
         if (empty($month)) {
             http_response_code(400);
