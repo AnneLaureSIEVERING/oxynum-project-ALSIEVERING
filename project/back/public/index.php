@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+// Header set Access-Control-Allow-Origin
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: *");
+
 //ini_set("display_errors", "On");
 
 require __DIR__. '/../vendor/autoload.php';
@@ -130,7 +135,4 @@ if ($match) {
     $method = $match['target']['method'];
     $params = $match['params'];
     $controllerObj->$method($params); 
-
-} else {
-    echo'ERREUR';
 }

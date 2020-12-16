@@ -8,7 +8,8 @@ class IncomeController {
 
     public function list() {
 
-        $user_id = $_SESSION ["userId"];
+        $userId = $_SESSION["userId"];
+        $user_id = intval($_POST['user_id']);
 
         $incomes = new Income;
         $result = $incomes->findAll($user_id);
@@ -18,9 +19,10 @@ class IncomeController {
 
     public function month() {
 
-        $user_id = $_SESSION ["userId"];
+        $userId = $_SESSION["userId"];
         $_POST = json_decode(file_get_contents('php://input'), true);
         $month = $_POST['month'];
+        $user_id = intval($_POST['user_id']);
 
         $incomes = new Income;
         $result = $incomes->totalAmountByMonth($month, $user_id);
@@ -30,9 +32,10 @@ class IncomeController {
 
     public function year() {
 
-        $user_id = $_SESSION ["userId"];
+        $userId = $_SESSION["userId"];
         $_POST = json_decode(file_get_contents('php://input'), true);
-        $year = $_POST['year'];
+        $year = intval($_POST['year']);
+        $user_id = intval($_POST['user_id']);
 
         $incomes = new Income;
         $result = $incomes->totalAmountByYear($year, $user_id);
@@ -42,24 +45,13 @@ class IncomeController {
 
     public function create() {
 
-        $user_id = $_SESSION ["userId"];
+        $user_id = $_SESSION['userId'];
         $_POST = json_decode(file_get_contents('php://input'), true);
 
         $month = $_POST['month'];
-        $year = $_POST['year'];
-        $amount = $_POST['amount'];
-
-        if (empty($month)) {
-            http_response_code(400);
-        }
-        if (empty($year)) {
-            http_response_code(400);
-        }
-        if (empty($amount)) {
-            http_response_code(400);
-        } else {
-            http_response_code(200);
-        }
+        $year = intval($_POST['year']);
+        $amount = intval($_POST['amount']);
+        $userId = intval($_POST['user_id']);
 
         $income = new Income;
         $income->setMonth($month);
@@ -67,12 +59,13 @@ class IncomeController {
         $income->setAmount($amount);
         $income->setUser_id($user_id);
 
-        $newIncome = $income->insert($month, $year, $amount, $user_id);
+        $newIncome = $income->insert($month, $year, $amount, $userId);
 
         if($newIncome){
             return http_response_code(200);
         } else {
-            http_response_code(400);
+            echo"certaines données sont manquantes";
+            return http_response_code(400);
         }   
     }
 
@@ -83,21 +76,8 @@ class IncomeController {
         $_POST = json_decode(file_get_contents('php://input'), true);
 
         $month = $_POST['month'];
-        $year = $_POST['year'];
-        $amount = $_POST['amount'];
-
-        if (empty($month)) {
-            echo"le mois est manquant";
-            http_response_code(400);
-        }
-        if (empty($year)) {
-            echo"l'année est manquante";
-            http_response_code(400);
-        }
-        if (empty($amount)) {
-            echo"le montant n'est pas renseigné";
-            http_response_code(400);
-        }
+        $year = intval($_POST['year']);
+        $amount = intval($_POST['amount']);
 
         $incomeUpdate = new Income;
         $incomeUpdate->setMonth($month);
@@ -109,7 +89,8 @@ class IncomeController {
         if($updateIncome){
             return http_response_code(200);
         } else {
-            http_response_code(400);
+            echo"certaines données sont manquantes";
+            return http_response_code(400);
         }
     }
 
@@ -123,7 +104,8 @@ class IncomeController {
         if($delete){
             return http_response_code(200);
         } else {
-            http_response_code(400);
+            echo"la suppression a échoué";
+            return http_response_code(400);
         }
 
     }

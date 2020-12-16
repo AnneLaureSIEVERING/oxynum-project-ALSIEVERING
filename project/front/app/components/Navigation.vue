@@ -9,17 +9,17 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end ps-2" id="navbarSupportedContent">
-                    <span class="navbar-text text-dark">Bonjour, utilisateur !</span>
+                    <span class="navbar-text text-dark">Bonjour, {{ firstname }} !</span>
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item dropdown me-2">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Mon compte
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/add-income">Ajouter un revenu</a></li>
-                                <li><a class="dropdown-item" href="/incomes">Mes revenus</a></li>
+                                <li><RouterLink class="dropdown-item" tag="a" to="/add-income">Ajouter des revenus</RouterLink></li>
+                                <li><RouterLink class="dropdown-item" tag="a" to="/incomes">Mes revenus</RouterLink></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/">Se déconnecter</a></li>
+                                <li><RouterLink class="dropdown-item" tag="a" to="login" @click.native="logout">Se déconnecter</RouterLink></li>
                             </ul>
                         </li>
                     </ul>
@@ -32,7 +32,23 @@
 
 <script>
 export default {
-    
+
+    data: function() {
+        return {
+            firstname: ""
+        }
+    },
+    mounted() {
+        if (localStorage.getItem('user-name')) {
+            this.firstname = localStorage.getItem('user-name');
+        }
+    },
+    methods: {
+      logout() {
+          localStorage.clear(); 
+          this.$router.push({name: 'login'}); 
+        }
+    }
 }
 </script>
 

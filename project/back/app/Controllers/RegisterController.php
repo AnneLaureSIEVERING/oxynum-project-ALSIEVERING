@@ -12,30 +12,9 @@ class RegisterController {
 
         $firstname = $_POST['firstname'];
         $email = $_POST['email'];
-        $confirmEmail = $_POST['checkEmail'];
         $password = $_POST['password'];
-        $confirmPassword = $_POST['checkPassword'];
 
-        if (empty($firstname)) {
-            http_response_code(400);
-        }
-        if (empty($email)) {
-            http_response_code(400);
-        }
-        if (empty($confirmEmail)) {
-            http_response_code(400);
-        }
-        if (empty($password)) {
-            http_response_code(400);
-        }
-        if (empty($confirmPassword)) {
-            http_response_code(400);
-        } else {
-            http_response_code(200);
-        }
-
-
-        if($email == $confirmEmail && $password == $confirmPassword){
+        if(isset($firstname) && isset($email) && isset($password)){
 
             $users = new Register();
 
@@ -48,7 +27,8 @@ class RegisterController {
             return http_response_code(200);
             
         } else {
-            http_response_code(400);
+            echo"Certaines données sont manquantes";
+            return http_response_code(400);
 
         }
     }

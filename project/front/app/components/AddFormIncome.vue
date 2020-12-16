@@ -5,36 +5,41 @@
         </div>
         <div class="col-12 col-md-8 col-lg-6">
             <h1 class="mt-5 mb-5 text-center fs-2">Ajouter un revenu</h1>
-            <form>
+            <form v-on:submit.prevent="checkForm">
                 <div class="input-group mb-4">
                     <label for="newIncome" class="form-label pe-3">Montant :</label>
-                    <input type="text" class="form-control" id="newIncome">
+                    <input type="text" class="form-control" id="newIncome" v-model="amount">
                     <span class="input-group-text" id="basic-addon2">€</span>
                 </div>
                 <div class="mb-4">
-                    <select class="form-select" aria-label="month">
+                    <select class="form-select" aria-label="month" v-model="month">
                         <option selected>Mois</option>
-                        <option value="1">Janvier</option>
-                        <option value="2">Février</option>
-                        <option value="3">Mars</option>
-                        <option value="4">Avril</option>
-                        <option value="5">Mai</option>
-                        <option value="6">Juin</option>
-                        <option value="7">Juillet</option>
-                        <option value="8">Août</option>
-                        <option value="9">Septembre</option>
-                        <option value="10">Octobre</option>
-                        <option value="11">Novembre</option>
-                        <option value="12">Décembre</option>
+                        <option value="Janvier">Janvier</option>
+                        <option value="Février">Février</option>
+                        <option value="Mars">Mars</option>
+                        <option value="Avril">Avril</option>
+                        <option value="Mai">Mai</option>
+                        <option value="Juin">Juin</option>
+                        <option value="Juillet">Juillet</option>
+                        <option value="Août">Août</option>
+                        <option value="Septembre">Septembre</option>
+                        <option value="Octobre">Octobre</option>
+                        <option value="Novembre">Novembre</option>
+                        <option value="Décembre">Décembre</option>
                     </select>
                 </div>
                 <div class="mb-4">
-                    <select class="form-select" aria-label="year">
+                    <select class="form-select" aria-label="year" v-model="year">
                         <option selected>Année</option>
-                        <option value="1">2020</option>
-                        <option value="2">2021</option>
-                        <option value="3">2022</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
                     </select>
+                </div>
+                <div class="alert-error">
+                     <ul class="error-list" v-if="errorList.length > 0">
+                        <li v-for="error in errorList" v-bind:key="error.id">{{ error.message }}</li>
+                    </ul>
                 </div>
                 <div class=" mb-5 text-center">
                     <button type="submit" class="btn btn-info btn-lg text-light">Ajouter</button>
@@ -46,11 +51,79 @@
 </template>
 
 <script>
+
+import ApiClient from '../services/ApiClient'
+
 export default {
-    
-}
+
+    data: function() {
+        return {
+            month: "",
+            year: "",
+            amount: "",
+            user_id:"",
+            errorList: []
+        }
+    },
+    mounted() {
+        if (localStorage.getItem('user')) {
+            this.user_id = localStorage.getItem('user');
+        }
+    },
+    methods: {
+        checkForm() {
+            console.log('month', this.month);
+            console.log('year', this.year);
+            console.log('amount', this.amount);
+            console.log(this.user_id);
+
+            this.errorList = [];
+
+            if (this.amount.length < 1) {
+                this.errorList.push({
+                    id: this.errorList.length + 1, 
+                    message: "Veuillez renseigner un montant"
+                });
+            }
+
+            if (this.month.length < 1) {
+                this.errorList.push({
+                    id: this.errorList.length + 1, 
+                    message: "Vous n'avez pas indiqué le mois"
+                });
+            }
+            if (this.year.length < 1) {
+                this.errorList.push({
+                    id: this.errorList.length + 1, 
+                    message: "Vous n'avez pas indiqué l'année"
+                });
+            }
+
+            if (this.errorList.length === 0) {
+                ApiClient.post('/income/add', {
+                    month: this.month,
+                    year: this.year,
+                    amount: this.amount,
+                    user_id: this.user_id
+                })
+                .then((response) => {
+                    console.log(response);
+                    if (response.request.status == 200) {
+                        this.$router.push({name: 'incomesList'});
+                    } else {
+                        console.log('erreur coté api');
+                    }
+                })
+            }
+        }
+    }    
+};
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    .error-list {
+        color: red;
+        list-style: none;
+        text-align: left;
+    }
 </style>

@@ -8,19 +8,11 @@ class LoginController {
 
     public static function signIn() {
 
-        echo"tu es bien sur le controller Login";
-
         $_POST = json_decode(file_get_contents('php://input'), true);
 
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        if (empty($email)) {
-            http_response_code(400);
-        }
-        if (empty($password)) {
-            http_response_code(400);
-        }
         if(isset($email) && isset($password)) {
 
             $loginUser = new Login();
@@ -35,13 +27,20 @@ class LoginController {
                     $_SESSION['firstname'] =  $userData->getFirstname();
                     $_SESSION['userId'] =  $userData->getId();
 
+                    $result = [
+                        "firstname" => $_SESSION['firstname'],
+                        "user" => $_SESSION['userId']
+                    ];
+
+                    echo json_encode($result);
+
                 } else {
                     echo "Email ou mot de passe invalide";
-                    http_response_code(400);
+                    return http_response_code(400);
                 }
             } else {
                 echo "Email ou mot de passe invalide";
-                http_response_code(400); 
+                return http_response_code(400); 
             }
         } 
     }
@@ -49,5 +48,6 @@ class LoginController {
     public function logout() {
 
         unset($_SESSION['firstname']);
+        unset($_SESSION['userId']);
     }
 }

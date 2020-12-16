@@ -76,7 +76,7 @@ class Income {
     }
 
     // Incomes manage
-    public static function insert($month, $year, $amount, $user_id) {
+    public static function insert($month, $year, $amount, $userId) {
 
         $table = 'incomes';
 
@@ -90,7 +90,7 @@ class Income {
         $pdoStatement->bindParam(':month', $month);
         $pdoStatement->bindParam(':year', $year);
         $pdoStatement->bindParam(':amount', $amount);
-        $pdoStatement->bindParam(':user_id', $user_id);
+        $pdoStatement->bindParam(':user_id', $userId);
 
         $pdoStatement->execute();
 
