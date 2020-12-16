@@ -20,8 +20,9 @@ class IncomeController {
 
     public function month() {
 
-        $userId = $_SESSION["userId"];
+        //$userId = $_SESSION["userId"];
         $_POST = json_decode(file_get_contents('php://input'), true);
+
         $month = $_POST['month'];
         $user_id = intval($_POST['user_id']);
 
@@ -33,8 +34,9 @@ class IncomeController {
 
     public function year() {
 
-        $userId = $_SESSION["userId"];
+        //$userId = $_SESSION["userId"];
         $_POST = json_decode(file_get_contents('php://input'), true);
+
         $year = intval($_POST['year']);
         $user_id = intval($_POST['user_id']);
 

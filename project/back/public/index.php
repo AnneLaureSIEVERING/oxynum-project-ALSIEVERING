@@ -74,7 +74,7 @@ $router->map(
 );
 
 $router->map(
-    'GET',
+    'POST',
     '/incomes/month', 
     [
         'method' => 'month',
@@ -84,7 +84,7 @@ $router->map(
 );
 
 $router->map(
-    'GET',
+    'POST',
     '/incomes/year', 
     [
         'method' => 'year',

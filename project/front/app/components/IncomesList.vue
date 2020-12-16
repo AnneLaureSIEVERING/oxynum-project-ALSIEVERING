@@ -52,10 +52,9 @@ export default {
             this.incomesList = response.data;
             console.log(this.incomesList);
         });
-    }    ,
+    },
     methods: {
         deleteData(id) {
-            console.log(this);
 
             ApiClient.post('/income/delete/'+ id)
             .then((response) => {
