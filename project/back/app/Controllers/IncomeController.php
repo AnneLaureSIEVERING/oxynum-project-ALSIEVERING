@@ -7,8 +7,9 @@ use App\Models\Income;
 class IncomeController {
 
     public function list() {
-
+        
         $userId = $_SESSION["userId"];
+        $_POST = json_decode(file_get_contents('php://input'), true);
         $user_id = intval($_POST['user_id']);
 
         $incomes = new Income;

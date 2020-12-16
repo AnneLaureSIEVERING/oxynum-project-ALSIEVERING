@@ -64,7 +64,7 @@ $router->map(
  *=======================*/
 
 $router->map(
-    'GET',
+    'POST',
     '/incomes', 
     [
         'method' => 'list',
