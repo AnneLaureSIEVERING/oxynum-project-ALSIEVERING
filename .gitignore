@@ -1,3 +1,3 @@
-.env
-.cache
 dist
+.cache
+.env
