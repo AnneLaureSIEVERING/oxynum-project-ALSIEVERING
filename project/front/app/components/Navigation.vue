@@ -31,6 +31,9 @@
 </template>
 
 <script>
+
+import ApiClient from '../services/ApiClient';
+
 export default {
 
     data: function() {
@@ -44,9 +47,13 @@ export default {
         }
     },
     methods: {
-      logout() {
-          localStorage.clear(); 
-          this.$router.push({name: 'login'}); 
+        logout() {
+            ApiClient.get('/logout')
+            .then((response) => {
+            console.log(response);
+                    localStorage.clear(); 
+                    this.$router.push({name: 'login'}); 
+            })
         }
     }
 }

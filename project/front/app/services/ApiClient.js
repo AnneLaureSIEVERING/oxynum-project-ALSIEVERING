@@ -4,7 +4,6 @@ const baseUrl = process.env.BASE_URL
 
 export default {
     get: function(path) {
-
         return axios.get(baseUrl + path);
     },
     
