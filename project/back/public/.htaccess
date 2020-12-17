@@ -1,0 +1,9 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
+RewriteRule ^(.*) - [E=BASE_URI:%1]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*)$ index.php [QSA,L]

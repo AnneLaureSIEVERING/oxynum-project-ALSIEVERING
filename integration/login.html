@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>SmartUp</title>
+</head>
+<body class="bg-light">
+    <header class="mt-5 fs-1">
+        <h1 class="row justify-content-center text-info">SmartUp</h1>
+    </header>
+    
+    <main class="container">
+        <section class=" row mt-5 justify-content-center text-center">
+            <h2 class="fs-4">
+                Une petite application, simple et puissante qui peut vous aider à gérer vos revenus !
+            </h2>
+        </section>
+        
+        <!--Form to login-->
+        <section class="row mt-5 justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <form id="login" action="" method="POST">
+                    <div class="mb-3">
+                        <label for="identifiant" class="form-label">Votre adresse mail</label>
+                        <input type="email" class="form-control" id="identifiant" aria-describedby="emailHelp" name="email" placeholder="Email" required autofocus>
+                        <div id="emailHelp" class="form-text">Vous ne devez jamais communiquer votre identifiant à qui que ce soit.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+                    </div>
+                    <div class="mb-4 form-check">
+                        <input type="checkbox" class="form-check-input" id="check">
+                        <label class="form-check-label" for="check">Voir les caractéres</label>
+                    </div>
+                    <div class=" mb-5 text-center">
+                        <button type="submit" class="btn btn-info btn-lg text-light">Se connecter</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="mb-5 text-center">
+        Vous n'êtes pas encore inscrit ? <a href="inscription.html">Créer un compte</a>
+    </footer>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
