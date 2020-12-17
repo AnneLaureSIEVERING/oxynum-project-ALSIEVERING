@@ -10,22 +10,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">Janvier</th>
-                    <td>2020</td>
-                    <td>2000</td>
+                <tr v-for="income in incomesList" v-bind:key="income.id">
+                    <th>{{income.month}}</th>
+                    <td>{{income.year}}</td>
+                    <td>{{income.amount}}</td>
                     <td>
-                        <button type="submit" class="btn btn-outline-secondary btn-sm me-4"><i class="bi bi-pencil-square"></i></button>
-                        <button type="submit" class="btn btn-outline-danger btn-sm "><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Janvier</th>
-                    <td>2020</td>
-                    <td>500</td>
-                    <td>
-                        <button type="submit" class="btn btn-outline-secondary btn-sm me-4"><i class="bi bi-pencil-square"></i></button>
-                        <button type="submit" class="btn btn-outline-danger btn-sm "><i class="bi bi-trash"></i></button>
+                        <button type="submit" class="btn btn-outline-secondary btn-sm me-4" data-bs-toggle="modal" data-bs-target="#EditModal"><i class="bi bi-pencil-square"></i></button>
+                        <button type="submit" class="btn btn-outline-danger btn-sm" v-on:click="deleteData(income.id)"><i class="bi bi-trash"></i></button>
+                        <modal v-bind:incomeID="income.id"/>
                     </td>
                 </tr>
             </tbody>
@@ -34,8 +26,47 @@
 </template>
 
 <script>
+
+import ApiClient from '../services/ApiClient';
+import modal from './EditIncome.vue';
+
 export default {
-    
+    components: {
+      modal,
+    },
+    data() {
+        return {
+            incomesList: [],
+            user_id: "",
+        }
+    },
+    mounted() {
+        if (localStorage.getItem('user')) {
+            this.user_id = localStorage.getItem('user');
+        }
+
+        ApiClient.post('/incomes', {
+            user_id: this.user_id
+        })
+        .then((response) => {
+            this.incomesList = response.data;
+            console.log(this.incomesList);
+        });
+    },
+    methods: {
+        deleteData(id) {
+
+            ApiClient.post('/income/delete/'+ id)
+            .then((response) => {
+                console.log(response);
+                if (response.request.status == 200) {
+                    location.reload();
+                } else {
+                    console.log('erreur coté api');
+                }
+            })
+        }
+    }
 }
 </script>
 
