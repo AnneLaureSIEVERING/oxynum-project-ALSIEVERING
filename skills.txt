@@ -1,3 +1,5 @@
-Back-End : PHP + Slim microframework
-Relational Database
-VueJS
+Back-End :  PHP + AltoRouter
+            Relational Database + SQL
+Front-End : VueJS 
+            CSS + BootStrap
+            Axios
