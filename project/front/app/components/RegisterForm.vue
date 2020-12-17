@@ -100,13 +100,21 @@ export default {
                     .then((response) => {
                         console.log(response);
 
-                        if (response.request.status == 200) {
+                        if (response.request.status == 200 && typeof response.data==="object") {
                             this.$router.push({name: 'login'});
                         } else {
+                            this.errorList.push({
+                            id: this.errorList.length + 1, 
+                            message: "La création du compte a échoué",
+                        })
                             console.log('erreur coté api');
                         }
                      })
                 } else {
+                    this.errorList.push({
+                            id: this.errorList.length + 1, 
+                            message: "La création du compte a échoué",
+                    })
                     console.log("les identifiants ne concordent pas avec la vérification")
                 }
              }

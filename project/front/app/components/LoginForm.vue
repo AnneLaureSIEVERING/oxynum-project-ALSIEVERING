@@ -64,7 +64,7 @@ export default {
                 .then((response) => {
                     console.log(response);
 
-                    if (response.request.status == 200) {
+                    if (response.request.status == 200 && typeof response.data==="object") {
                         const userName = response.data.firstname;
                         localStorage.setItem('user-name', userName);
                         const userID = response.data.user;
@@ -72,6 +72,10 @@ export default {
 
                         this.$router.push({name: 'incomesList'});
                     } else {
+                        this.errorList.push({
+                            id: this.errorList.length + 1, 
+                            message: "La connexion a échoué",
+                        })
                        console.log('erreur coté api');
                     }
                 })

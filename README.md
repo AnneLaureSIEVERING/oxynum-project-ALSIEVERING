@@ -7,6 +7,12 @@
 - Composer
 - Node
 - MySQL/MariaDB
+- Git
+- Parcel
+
+- Activer le module `rewrite` sur Apache
+- S'assurer que l'extension `PDO` est activée sur PHP
+- S'assurer que le pilote `PDO_MySQL` est installé
 
 
 ## Installation du projet
@@ -27,7 +33,7 @@
 - Faire un `npm install` dans le dossier `project/front`
 - Dans le dossier `project`, copier le fichier `.env.dist` et renommer en `.env`
 - Renseigner la base URL du fichier, en pointant vers le dossier `back/public` (dans lequel se trouve `index.php`)
-- Faire la commande : `parcel build index.html` 
+- Dans le dossier `project/front/app` faire la commande : `parcel build index.html` 
 - Copier le contenu du dossier `dist` sur le serveur web
 
 
