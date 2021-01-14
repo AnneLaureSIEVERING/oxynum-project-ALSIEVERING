@@ -1,17 +1,23 @@
 import axios from 'axios';
-
-const baseUrl = process.env.BASE_URL
+import config from '../config/config';
 
 export default {
     get: function(path) {
-        return axios.get(baseUrl + path);
+      if(!path) {
+        console.error('erreur: le path n\'est pas renseigné');
+      } else {
+        return axios.get(config.baseUrl + path);
+      }   
     },
     
     post: function(path, data) {
-
-      return axios.post(
-        baseUrl + path, 
-        data,
-      );
+      if(!path || !data) {
+        console.error('erreur : le path et/ou les data ne sont pas renseignés');
+      } else {
+        return axios.post(
+          config.baseUrl + path, 
+          data,
+        );
+      }
     }
 }

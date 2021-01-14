@@ -27,15 +27,12 @@
             </div>
         </nav>
     </header>
-
 </template>
 
 <script>
-
 import ApiClient from '../services/ApiClient';
 
 export default {
-
     data: function() {
         return {
             firstname: ""

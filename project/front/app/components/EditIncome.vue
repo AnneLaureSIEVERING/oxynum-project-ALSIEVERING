@@ -40,11 +40,7 @@
                                     <option value="2022">2022</option>
                                 </select>
                             </div>
-                            <div class="alert-error">
-                                <ul class="error-list" v-if="errorList.length > 0">
-                                    <li v-for="error in errorList" v-bind:key="error.id">{{ error.message }}</li>
-                                </ul>
-                            </div>
+                            <AlertError :errorList="errorList" v-if="errorList.length > 0"></AlertError>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -55,14 +51,16 @@
             </div>
         </div>
     </div>
-    
 </template>
 
 <script>
-
 import ApiClient from '../services/ApiClient';
+import AlertError from './molécules/AlertError';
 
 export default {
+    components: {
+        AlertError
+    },
     props: ["incomeID"],
     data: function () {
         return {

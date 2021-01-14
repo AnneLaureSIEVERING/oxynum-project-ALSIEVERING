@@ -24,25 +24,23 @@
                         <label for="checkPassword" class="form-label">Confirmation du mot de passe</label>
                         <input type="password" class="form-control" id="checkPassword" name="checkPassword" v-model="checkPassword">
                     </div>
-                    <div class="alert-error">
-                        <ul class="error-list" v-if="errorList.length > 0">
-                            <li v-for="error in errorList" v-bind:key="error.id">{{ error.message }}</li>
-                        </ul>
-                    </div>
+                    <AlertError :errorList="errorList" v-if="errorList.length > 0"></AlertError>
                     <div class=" mb-5 text-center">
                         <button type="submit" class="btn btn-info btn-lg text-light">Créer un compte</button>
                     </div>
                 </form>
             </div>
     </section>
-    
 </template>
 
 <script>
-
-import ApiClient from '../services/ApiClient'
+import ApiClient from '../services/ApiClient';
+import AlertError from './molécules/AlertError';
 
 export default {
+    components: {
+        AlertError
+    },
     data: function() {
         return {
             firstname: "",

@@ -1,5 +1,4 @@
 <template>
-      <!--Form to login-->
         <section class="row mt-5 justify-content-center">
             <div class="col-12 col-md-8 col-lg-6">
                 <form id="login" v-on:submit.prevent="checkForm">
@@ -12,11 +11,7 @@
                         <label for="password" class="form-label">Mot de passe</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" v-model="password">
                     </div>
-                    <div class="alert-error">
-                        <ul class="error-list" v-if="errorList.length > 0">
-                            <li v-for="error in errorList" v-bind:key="error.id">{{ error.message }}</li>
-                        </ul>
-                    </div>
+                    <AlertError :errorList="errorList" v-if="errorList.length > 0"></AlertError>
                     <div class=" mb-5 text-center">
                         <button type="submit" class="btn btn-info btn-lg text-light">Se connecter</button>
                     </div>
@@ -26,10 +21,13 @@
 </template>
 
 <script>
-
-import ApiClient from '../services/ApiClient'
+import ApiClient from '../services/ApiClient';
+import AlertError from './molécules/AlertError';
 
 export default {
+    components: {
+        AlertError
+    },
     data: function() {
         return {
             email: "",
@@ -84,11 +82,3 @@ export default {
     } 
 };
 </script>
-
-<style lang="scss" scoped>
-    .error-list {
-        color: red;
-        list-style: none;
-        text-align: left;
-    }
-</style>
