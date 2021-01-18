@@ -10,9 +10,9 @@
 
 <script>
 
-import NavBarre from '../components/Navigation';
-import UserChoiceIncome from '../components/UserChoiceIncome';
-import IncomesList from '../components/IncomesList';
+import NavBarre from '../components/organism/Navigation';
+import UserChoiceIncome from '../components/organism/UserChoiceIncome';
+import IncomesList from '../components/organism/IncomesList';
 
 
 export default {

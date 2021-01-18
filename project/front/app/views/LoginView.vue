@@ -11,10 +11,10 @@
 
 <script>
 
-import HeaderForm from '../components/organismes/header/HeaderForm.vue';
-import LoginFormHeader from '../components/organismes/header/LoginFormHeader.vue';
-import LoginForm from "../components/LoginForm";
-import LoginFormFooter from "../components/organismes/footer/LoginFormFooter";
+import HeaderForm from '../components/organism/header/HeaderForm.vue';
+import LoginFormHeader from '../components/organism/header/LoginFormHeader.vue';
+import LoginForm from "../components/organism/LoginForm";
+import LoginFormFooter from "../components/organism/footer/LoginFormFooter";
 
 export default {
   components: {

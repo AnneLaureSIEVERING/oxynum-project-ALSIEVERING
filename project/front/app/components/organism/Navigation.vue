@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import ApiClient from '../services/ApiClient';
+import ApiClient from '../../services/ApiClient';
 
 export default {
     data: function() {

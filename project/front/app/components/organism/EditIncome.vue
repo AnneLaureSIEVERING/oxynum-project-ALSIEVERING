@@ -9,9 +9,9 @@
                     </div>
                     <div class="modal-body">
                         <form v-on:submit.prevent="checkForm">
-                            <InputGroupForm v-model="amount">></InputGroupForm>
-                            <SelectMonth v-model="month"></SelectMonth>
-                            <SelectYear v-model="year"></SelectYear>
+                            <InputGroupForm v-model="amount"></InputGroupForm>
+                            <SelectMonth v-model="month" :monthList="monthList"></SelectMonth> <!-- TODO: y ajouter la fonction qui lui sera reliée -->
+                            <SelectYear v-model="year" :yearList="yearList"></SelectYear> <!-- TODO: y ajouter la fonction qui lui sera reliée -->
                             <AlertError :errorList="errorList" v-if="errorList.length > 0"></AlertError>
                         </form>
                     </div>
@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import ApiClient from '../services/ApiClient';
-import AlertError from './molécules/AlertError';
-import ButtonModal from './atomes/buttons/ButtonModal';
-import SelectMonth from './molécules/SelectMonth';
-import SelectYear from './molécules/SelectYear';
-import InputGroupForm from './molécules/InputGroupForm';
+import ApiClient from '../../services/ApiClient';
+import AlertError from '../molecule/AlertError';
+import ButtonModal from '../atoms/buttons/ButtonModal';
+import SelectMonth from '../molecule/SelectMonth';
+import SelectYear from '../molecule/SelectYear';
+import InputGroupForm from '../molecule/InputGroupForm';
 
 export default {
     components: {
@@ -44,11 +44,13 @@ export default {
             month: "",
             year: "",
             amount: "",
-            errorList: []
+            errorList: [],
+            monthList: [],
+            yearList: []
         };
     },
     methods: {
-      update() {
+      async update() {
 
             this.errorList = [];
 
@@ -73,19 +75,17 @@ export default {
             }
 
             if (this.errorList.length === 0) {
-                ApiClient.post('/income/update/'+this.incomeID, {
+                let responseApi = await ApiClient.post('/income/update/'+this.incomeID, {
                     month: this.month,
                     year: this.year,
                     amount: this.amount,
-                })
-                .then((response) => {
-                    console.log(response);
-                    if (response.request.status == 200) {
-                        location.reload();
-                    } else {
-                        console.log('erreur coté api');
-                    }
-                })
+                });
+                console.log(responseApi);
+                if (responseApi.request.status == 200) {
+                    location.reload();
+                } else {
+                    console.log('erreur coté api');
+                }
             }
         }
     }

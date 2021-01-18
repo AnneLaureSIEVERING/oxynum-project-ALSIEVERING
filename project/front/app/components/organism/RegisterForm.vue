@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import ApiClient from '../services/ApiClient';
-import AlertError from './molécules/AlertError';
-import ButtonRegister from './atomes/buttons/ButtonRegister';
+import ApiClient from '../../services/ApiClient';
+import AlertError from '../molecule/AlertError';
+import ButtonRegister from '../atoms/buttons/ButtonRegister';
 
 export default {
     components: {
@@ -52,7 +52,7 @@ export default {
         }
     },
     methods: {
-        checkForm() {
+        async checkForm() {
 
             this.errorList = [];
 
@@ -90,24 +90,22 @@ export default {
 
             if (this.errorList.length === 0) {
                 if(this.email == this.checkEmail && this.password == this.checkPassword){
-                    ApiClient.post('/register', {
+                    let responseApi = await ApiClient.post('/register', {
                         firstname: this.firstname,
                         email: this.email,
                         password: this.password
-                     })
-                    .then((response) => {
-                        console.log(response);
+                     });
+                    console.log(responseApi);
 
-                        if (response.request.status == 200 && typeof response.data==="object") {
-                            this.$router.push({name: 'login'});
-                        } else {
-                            this.errorList.push({
-                            id: this.errorList.length + 1, 
-                            message: "La création du compte a échoué",
-                        })
-                            console.log('erreur coté api');
-                        }
-                     })
+                    if (responseApi.request.status == 200 && typeof response.data==="object") {
+                        this.$router.push({name: 'login'});
+                    } else {
+                        this.errorList.push({
+                        id: this.errorList.length + 1, 
+                        message: "La création du compte a échoué",
+                    })
+                        console.log('erreur coté api');
+                    }
                 } else {
                     this.errorList.push({
                             id: this.errorList.length + 1, 

@@ -1,15 +1,14 @@
 <template>
     <section class="row justify-content-center border p-3 mt-5">
         <div class="col-md-4 col-lg-6 mt-5">
-            <img src="../assets/images/pexels-tirelire.jpg" alt="tirelire" class="img-fluid">
+            <img src="../../assets/images/pexels-tirelire.jpg" alt="tirelire" class="img-fluid">
         </div>
         <div class="col-12 col-md-8 col-lg-6">
-            <AddFormTitle></AddFormTitle>
-            
+            <h1 class="mt-5 mb-5 text-center fs-2">Ajouter un revenu</h1>
             <form v-on:submit.prevent="checkForm">
-                <InputGroupForm v-model="amount">></InputGroupForm>
-                <SelectMonth v-model="month"></SelectMonth>
-                <SelectYear v-model="year"></SelectYear>
+                <InputGroupForm v-model="amount"></InputGroupForm>
+                <SelectMonth v-model="month" :monthList="monthList"></SelectMonth> <!-- TODO: y ajouter la fonction qui lui sera reliée -->
+                <SelectYear v-model="year" :yearList="yearList"></SelectYear> <!-- TODO : y ajouter la fonction qui lui sera reliée -->
                 <AlertError :errorList="errorList" v-if="errorList.length > 0"></AlertError>
                 <ButtonAdd></ButtonAdd>
             </form>
@@ -18,19 +17,17 @@
 </template>
 
 <script>
-import ApiClient from '../services/ApiClient';
-import AlertError from './molécules/AlertError';
-import ButtonAdd from './atomes/buttons/ButtonAdd'
-import AddFormTitle from './atomes/titles/AddFormTitle';
-import SelectMonth from './molécules/SelectMonth';
-import SelectYear from './molécules/SelectYear';
-import InputGroupForm from './molécules/InputGroupForm';
+import ApiClient from '../../services/ApiClient';
+import AlertError from '../molecule/AlertError';
+import ButtonAdd from '../atoms/buttons/ButtonAdd'
+import SelectMonth from '../molecule/SelectMonth';
+import SelectYear from '../molecule/SelectYear';
+import InputGroupForm from '../molecule/InputGroupForm';
 
 export default {
     components: {
         AlertError,
         ButtonAdd,
-        AddFormTitle,
         SelectMonth,
         SelectYear,
         InputGroupForm
@@ -41,7 +38,9 @@ export default {
             year: "",
             amount: "",
             user_id:"",
-            errorList: []
+            errorList: [],
+            monthList: [],
+            yearList: []
         }
     },
     mounted() {
@@ -50,7 +49,7 @@ export default {
         }
     },
     methods: {
-        checkForm() {
+        async checkForm() {
             console.log('month', this.month);
             console.log('year', this.year);
             console.log('amount', this.amount);
@@ -79,20 +78,19 @@ export default {
             }
 
             if (this.errorList.length === 0) {
-                ApiClient.post('/income/add', {
+                let responseAPI = await ApiClient.post('/income/add', {
                     month: this.month,
                     year: this.year,
                     amount: this.amount,
                     user_id: this.user_id
-                })
-                .then((response) => {
-                    console.log(response);
-                    if (response.request.status == 200) {
-                        this.$router.push({name: 'incomesList'});
-                    } else {
-                        console.log('erreur coté api');
-                    }
-                })
+                });
+                console.log(responseAPI);
+                    
+                if (responseAPI.request.status == 200) {
+                    this.$router.push({name: 'incomesList'});
+                } else {
+                    console.log('erreur coté api');
+                }
             }
         }
     }    

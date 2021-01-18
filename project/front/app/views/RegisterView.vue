@@ -10,9 +10,9 @@
 
 <script>
 
-import HeaderForm from "../components/organismes/header/HeaderForm";
-import RegisterForm from "../components/RegisterForm";
-import RegisterFormFooter from "../components/organismes/footer/RegisterFormFooter";
+import HeaderForm from "../components/organism/header/HeaderForm";
+import RegisterForm from "../components/organism/RegisterForm";
+import RegisterFormFooter from "../components/organism/footer/RegisterFormFooter";
 
 export default {
   components: {

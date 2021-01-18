@@ -9,8 +9,8 @@
 
 <script>
 
-import NavBarre from '../components/Navigation';
-import AddFormIncome from '../components/AddFormIncome';
+import NavBarre from '../components/organism/Navigation';
+import AddFormIncome from '../components/organism/AddFormIncome';
 
 export default {
     components: {
