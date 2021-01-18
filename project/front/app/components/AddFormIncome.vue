@@ -4,42 +4,14 @@
             <img src="../assets/images/pexels-tirelire.jpg" alt="tirelire" class="img-fluid">
         </div>
         <div class="col-12 col-md-8 col-lg-6">
-            <h1 class="mt-5 mb-5 text-center fs-2">Ajouter un revenu</h1>
+            <AddFormTitle></AddFormTitle>
+            
             <form v-on:submit.prevent="checkForm">
-                <div class="input-group mb-4">
-                    <label for="newIncome" class="form-label pe-3">Montant :</label>
-                    <input type="text" class="form-control" id="newIncome" v-model="amount">
-                    <span class="input-group-text" id="basic-addon2">€</span>
-                </div>
-                <div class="mb-4">
-                    <select class="form-select" aria-label="month" v-model="month">
-                        <option selected>Mois</option>
-                        <option value="Janvier">Janvier</option>
-                        <option value="Février">Février</option>
-                        <option value="Mars">Mars</option>
-                        <option value="Avril">Avril</option>
-                        <option value="Mai">Mai</option>
-                        <option value="Juin">Juin</option>
-                        <option value="Juillet">Juillet</option>
-                        <option value="Août">Août</option>
-                        <option value="Septembre">Septembre</option>
-                        <option value="Octobre">Octobre</option>
-                        <option value="Novembre">Novembre</option>
-                        <option value="Décembre">Décembre</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <select class="form-select" aria-label="year" v-model="year">
-                        <option selected>Année</option>
-                        <option value="2020">2020</option>
-                        <option value="2021">2021</option>
-                        <option value="2022">2022</option>
-                    </select>
-                </div>
+                <InputGroupForm v-model="amount">></InputGroupForm>
+                <SelectMonth v-model="month"></SelectMonth>
+                <SelectYear v-model="year"></SelectYear>
                 <AlertError :errorList="errorList" v-if="errorList.length > 0"></AlertError>
-                <div class=" mb-5 text-center">
-                    <button type="submit" class="btn btn-info btn-lg text-light">Ajouter</button>
-                </div>
+                <ButtonAdd></ButtonAdd>
             </form>
         </div>
     </section>
@@ -48,10 +20,20 @@
 <script>
 import ApiClient from '../services/ApiClient';
 import AlertError from './molécules/AlertError';
+import ButtonAdd from './atomes/buttons/ButtonAdd'
+import AddFormTitle from './atomes/titles/AddFormTitle';
+import SelectMonth from './molécules/SelectMonth';
+import SelectYear from './molécules/SelectYear';
+import InputGroupForm from './molécules/InputGroupForm';
 
 export default {
     components: {
-        AlertError
+        AlertError,
+        ButtonAdd,
+        AddFormTitle,
+        SelectMonth,
+        SelectYear,
+        InputGroupForm
     },
     data: function() {
         return {
@@ -116,11 +98,3 @@ export default {
     }    
 };
 </script>
-
-<style lang="scss" scoped>
-    .error-list {
-        color: red;
-        list-style: none;
-        text-align: left;
-    }
-</style>

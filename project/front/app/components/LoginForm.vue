@@ -12,9 +12,7 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" v-model="password">
                     </div>
                     <AlertError :errorList="errorList" v-if="errorList.length > 0"></AlertError>
-                    <div class=" mb-5 text-center">
-                        <button type="submit" class="btn btn-info btn-lg text-light">Se connecter</button>
-                    </div>
+                    <ButtonLogin></ButtonLogin>
                 </form>
             </div>
         </section>
@@ -23,10 +21,13 @@
 <script>
 import ApiClient from '../services/ApiClient';
 import AlertError from './molécules/AlertError';
+import ButtonLogin from './atomes/buttons/ButtonLogin';
 
 export default {
+    name: "LoginForm",
     components: {
-        AlertError
+        AlertError,
+        ButtonLogin
     },
     data: function() {
         return {

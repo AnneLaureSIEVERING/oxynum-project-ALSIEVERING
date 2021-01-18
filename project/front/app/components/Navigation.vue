@@ -1,6 +1,4 @@
 <template>
-
-    <!-- Navbar content -->
     <header class="container">
         <nav class="row navbar fixed-top  navbar-expand-lg navbar-light border border-info bg-light">
             <div class="container-fluid col-12">
@@ -55,7 +53,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

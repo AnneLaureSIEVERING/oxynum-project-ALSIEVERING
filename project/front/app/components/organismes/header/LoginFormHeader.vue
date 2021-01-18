@@ -8,10 +8,6 @@
 
 <script>
 export default {
-    
+    name: "LoginFormHeader"
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -10,43 +9,13 @@
                     </div>
                     <div class="modal-body">
                         <form v-on:submit.prevent="checkForm">
-                            <div class="input-group mb-4">
-                                <label for="newIncome" class="form-label pe-3">Montant :</label>
-                                <input type="text" class="form-control" id="newIncome" v-model="amount">
-                                <span class="input-group-text" id="basic-addon2">€</span>
-                            </div>
-                            <div class="mb-4">
-                                <select class="form-select" aria-label="month" v-model="month">
-                                    <option selected>Mois</option>
-                                    <option value="Janvier">Janvier</option>
-                                    <option value="Février">Février</option>
-                                    <option value="Mars">Mars</option>
-                                    <option value="Avril">Avril</option>
-                                    <option value="Mai">Mai</option>
-                                    <option value="Juin">Juin</option>
-                                    <option value="Juillet">Juillet</option>
-                                    <option value="Août">Août</option>
-                                    <option value="Septembre">Septembre</option>
-                                    <option value="Octobre">Octobre</option>
-                                    <option value="Novembre">Novembre</option>
-                                    <option value="Décembre">Décembre</option>
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <select class="form-select" aria-label="year" v-model="year">
-                                    <option selected>Année</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2022">2022</option>
-                                </select>
-                            </div>
+                            <InputGroupForm v-model="amount">></InputGroupForm>
+                            <SelectMonth v-model="month"></SelectMonth>
+                            <SelectYear v-model="year"></SelectYear>
                             <AlertError :errorList="errorList" v-if="errorList.length > 0"></AlertError>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-primary" v-on:click="update">Modifier</button>
-                    </div>
+                    <ButtonModal></ButtonModal>
                 </div>
             </div>
         </div>
@@ -56,10 +25,18 @@
 <script>
 import ApiClient from '../services/ApiClient';
 import AlertError from './molécules/AlertError';
+import ButtonModal from './atomes/buttons/ButtonModal';
+import SelectMonth from './molécules/SelectMonth';
+import SelectYear from './molécules/SelectYear';
+import InputGroupForm from './molécules/InputGroupForm';
 
 export default {
     components: {
-        AlertError
+        AlertError,
+        ButtonModal,
+        SelectMonth,
+        SelectYear,
+        InputGroupForm
     },
     props: ["incomeID"],
     data: function () {
@@ -115,11 +92,3 @@ export default {
     
 }
 </script>
-
-<style lang="scss" scoped>
-    .error-list {
-        color: red;
-        list-style: none;
-        text-align: left;
-    }
-</style>

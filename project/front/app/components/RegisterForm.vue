@@ -25,9 +25,7 @@
                         <input type="password" class="form-control" id="checkPassword" name="checkPassword" v-model="checkPassword">
                     </div>
                     <AlertError :errorList="errorList" v-if="errorList.length > 0"></AlertError>
-                    <div class=" mb-5 text-center">
-                        <button type="submit" class="btn btn-info btn-lg text-light">Créer un compte</button>
-                    </div>
+                    <ButtonRegister></ButtonRegister>
                 </form>
             </div>
     </section>
@@ -36,10 +34,12 @@
 <script>
 import ApiClient from '../services/ApiClient';
 import AlertError from './molécules/AlertError';
+import ButtonRegister from './atomes/buttons/ButtonRegister';
 
 export default {
     components: {
-        AlertError
+        AlertError,
+        ButtonRegister
     },
     data: function() {
         return {
@@ -120,11 +120,3 @@ export default {
     } 
 };
 </script>
-
-<style lang="scss" scoped>
-    .error-list {
-        color: red;
-        list-style: none;
-        text-align: left;
-    }
-</style>

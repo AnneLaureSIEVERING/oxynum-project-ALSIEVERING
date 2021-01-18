@@ -6,10 +6,6 @@
 
 <script>
 export default {
-    
+    name: "HeaderForm"
 }
 </script>
-
-<style scoped>
-
-</style>

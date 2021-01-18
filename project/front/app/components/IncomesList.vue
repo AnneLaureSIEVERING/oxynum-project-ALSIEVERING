@@ -26,7 +26,6 @@
 </template>
 
 <script>
-
 import ApiClient from '../services/ApiClient';
 import modal from './EditIncome.vue';
 
@@ -69,7 +68,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

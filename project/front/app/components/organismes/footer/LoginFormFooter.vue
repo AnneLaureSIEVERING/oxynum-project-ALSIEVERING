@@ -6,10 +6,6 @@
 
 <script>
 export default {
-    
+    name: "LoginFormFooter"
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -9,52 +9,34 @@
             <h2 class="fs-4 mt-5">Vous souhaitez savoir combien vous avez gagné ?</h2>
              
         <div class="row justify-content-center align-items-center mt-5">
-            <div class="col-8 col-md-9 col-lg-5">
-                <select class="form-select" aria-label="chooseMonth" v-model="month">
-                    <option selected>Choisir le mois</option>
-                    <option value="Janvier">Janvier</option>
-                    <option value="Février">Février</option>
-                    <option value="Mars">Mars</option>
-                    <option value="Avril">Avril</option>
-                    <option value="Mai">Mai</option>
-                    <option value="Juin">Juin</option>
-                    <option value="Juillet">Juillet</option>
-                    <option value="Août">Août</option>
-                    <option value="Septembre">Septembre</option>
-                    <option value="Octobre">Octobre</option>
-                    <option value="Novembre">Novembre</option>
-                    <option value="Décembre">Décembre</option>
-                </select>
-            </div>
-            <div class="col-4 col-md-3 col-lg-3">
-                <button class="btn btn-info btn-lg text-light" type="submit" v-on:click="monthMethod">Calculer</button>
-            </div>
+            <SelectMonth v-model="month"></SelectMonth>
+            <ButtonIncomeByMonth v-on:click="monthMethod"></ButtonIncomeByMonth>
         </div>
             
         <div class="row justify-content-center align-items-center mt-5">
-            <div class="col-8 col-md-9 col-lg-5">
-                <select class="form-select" aria-label="chooseYear" v-model="year">
-                    <option selected>Choisir l'année</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                </select>
-            </div>
-            <div class="col-4 col-md-3 col-lg-3">
-                <button class="btn btn-info btn-lg text-light" type="submit" v-on:click="yearMethod">Calculer</button>
-            </div>
+            <SelectYear v-model="year"></SelectYear>
+            <ButtonIncomeByYear v-on:click="yearMethod"></ButtonIncomeByYear>
         </div>
             
         <p class="text-center fs-4 mt-5">Sur cette période, j'ai gagné : {{incomeSum}}</p>
         </div>
     </section>   
-    
 </template>
 
 <script>
 import ApiClient from '../services/ApiClient';
+import ButtonIncomeByMonth from "./atomes/buttons/ButtonIncomeByMonth";
+import ButtonIncomeByYear from './atomes/buttons/ButtonIncomeByYear';
+import SelectMonth from './molécules/SelectMonth';
+import SelectYear from './molécules/SelectYear';
 
 export default {
+    components: {
+        ButtonIncomeByMonth,
+        ButtonIncomeByYear,
+        SelectMonth,
+        SelectYear
+    },
     data() {
         return {
             month:"",
@@ -88,10 +70,5 @@ export default {
             });
         }
     }
-    
 }
 </script>
-
-<style scoped>
-
-</style>
